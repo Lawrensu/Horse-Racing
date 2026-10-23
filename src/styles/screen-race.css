@@ -1,0 +1,143 @@
+/* ============================================================
+   screen-race.css
+   Full-screen race view with Undertale-style bottom stats bar
+   ============================================================ */
+
+/* ── Full-screen container ───────────────────────────────────────────────── */
+
+.race-fullscreen {
+  position: fixed;
+  top: 48px;       /* sit below the HUD */
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  background: #050805;
+  overflow: hidden;
+  z-index: 10;
+}
+
+/* ── Race canvas area (fills all space above the stats bar) ─────────────── */
+
+.race-canvas-area {
+  flex: 1 1 0;
+  min-height: 0;       /* allow flexbox to shrink this below its content height */
+  overflow: hidden;
+  position: relative;
+}
+
+/* CRT scanline overlay */
+.race-canvas-area::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent        0px,
+    transparent        1px,
+    rgba(0, 0, 0, 0.1) 1px,
+    rgba(0, 0, 0, 0.1) 2px
+  );
+  z-index: 1;
+}
+
+/* Pre tag: fills the canvas area completely */
+#race-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  font-family: var(--font-mono);
+  /*
+    Scale font so the ~100-char-wide frame fits the viewport.
+    1vw ≈ 1 char at 100-char lines; tune the multiplier for your screen.
+  */
+  font-size: clamp(7px, 0.95vw, 12px);
+  line-height: 1.42;
+  color: var(--green-glow);
+  background: transparent;
+  border: none;
+  padding: 10px 12px;
+  white-space: pre;
+  overflow: hidden;
+  text-shadow: 0 0 5px rgba(57, 255, 20, 0.28);
+  box-sizing: border-box;
+}
+
+/* ── Your-pick banner ────────────────────────────────────────────────────── */
+
+.race-pick-banner {
+  flex-shrink: 0;
+  background: rgba(240, 192, 64, 0.08);
+  border-top: 1px solid rgba(240, 192, 64, 0.35);
+  border-bottom: 1px solid rgba(240, 192, 64, 0.2);
+  padding: 4px 16px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--accent-gold);
+  letter-spacing: 1.5px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Undertale-style bottom stats bar ────────────────────────────────────── */
+
+.race-stats-bar {
+  flex-shrink: 0;
+  background: #07100a;
+  border-top: 2px solid rgba(57, 255, 20, 0.45);
+  overflow: hidden;
+  /* Fixed height so the canvas area always gets consistent space */
+  max-height: 35vh;
+  overflow-y: auto;
+}
+
+/* Thin scrollbar for the stats bar */
+.race-stats-bar::-webkit-scrollbar { width: 4px; }
+.race-stats-bar::-webkit-scrollbar-track { background: #07100a; }
+.race-stats-bar::-webkit-scrollbar-thumb { background: var(--border); }
+
+#stats-bar-canvas {
+  display: block;
+  width: 100%;
+  font-family: var(--font-mono);
+  font-size: clamp(6px, 0.82vw, 10px);
+  line-height: 1.45;
+  color: var(--text-primary);
+  background: transparent;
+  border: none;
+  padding: 6px 12px;
+  white-space: pre;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* ── Stand-event flash animation ─────────────────────────────────────────── */
+
+@keyframes event-flash {
+  0%,100% { opacity: 1;   }
+  50%     { opacity: 0.3; }
+}
+
+.stand-event-active {
+  animation: event-flash 0.5s ease-in-out 3;
+}
+
+/* ── Responsive: on very small screens shrink the stats bar ──────────────── */
+
+@media (max-width: 600px) {
+  .race-stats-bar {
+    max-height: 30vh;
+  }
+
+  #race-canvas {
+    font-size: clamp(5px, 2.2vw, 9px);
+  }
+
+  #stats-bar-canvas {
+    font-size: clamp(5px, 1.8vw, 8px);
+  }
+}

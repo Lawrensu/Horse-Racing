@@ -1,0 +1,310 @@
+/* ============================================================
+   screen-prerace.css — Pre-race betting screen styles
+   Steel Ball Run ASCII Horse Racing
+   ============================================================ */
+
+/* ── Layout ── */
+
+.prerace-layout {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 20px;
+  width: 100%;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .prerace-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.prerace-left-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.prerace-right-panel {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  padding: 16px;
+  position: sticky;
+  top: 68px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-height: calc(100vh - 80px);
+  overflow-y: auto;
+}
+
+/* ── Section heading ── */
+
+.section-title {
+  font-size: 10px;
+  font-weight: bold;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 12px;
+}
+
+/* ── Racer card grid ── */
+
+.racer-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 10px;
+}
+
+.racer-card {
+  background: var(--card-bg);
+  border: 2px solid var(--border);
+  padding: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+  position: relative;
+}
+
+.racer-card:not(.eliminated):hover {
+  border-color: rgba(240, 192, 64, 0.5);
+  box-shadow: 0 0 8px rgba(240, 192, 64, 0.15);
+}
+
+.racer-card.selected {
+  border-color: var(--accent-gold);
+  background: rgba(240, 192, 64, 0.07);
+  box-shadow: 0 0 16px rgba(240, 192, 64, 0.25);
+}
+
+.racer-card.eliminated {
+  opacity: 0.3;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ── Card internals ── */
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.card-sprite {
+  font-size: 22px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.card-name-block {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.card-name {
+  font-size: 13px;
+  font-weight: bold;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+/* ── Tier badge ── */
+
+.card-tier-badge {
+  display: inline-block;
+  font-size: 9px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  padding: 1px 5px;
+  text-transform: uppercase;
+  border-radius: 1px;
+}
+
+.card-tier-badge.tier-s {
+  background: var(--tier-s);
+  color: #000;
+}
+
+.card-tier-badge.tier-a {
+  background: var(--tier-a);
+  color: #000;
+}
+
+.card-tier-badge.tier-b {
+  background: var(--tier-b);
+  color: #000;
+}
+
+.card-tier-badge.tier-c {
+  background: var(--tier-c);
+  color: #fff;
+}
+
+/* ── Stat bars ── */
+
+.card-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.stat-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+}
+
+.stat-label {
+  width: 30px;
+  color: var(--muted);
+  text-transform: uppercase;
+  font-size: 10px;
+  flex-shrink: 0;
+}
+
+.stat-bar-track {
+  flex: 1;
+  height: 7px;
+  background: rgba(255, 255, 255, 0.07);
+  border-radius: 1px;
+  overflow: hidden;
+}
+
+.stat-bar-fill {
+  height: 100%;
+  background: var(--green-glow);
+  border-radius: 1px;
+  box-shadow: 0 0 4px rgba(57, 255, 20, 0.5);
+  transition: width 0.3s ease;
+}
+
+.stat-value {
+  width: 26px;
+  text-align: right;
+  color: var(--text-primary);
+  font-size: 10px;
+}
+
+/* ── Card stand info ── */
+
+.card-stand {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+  font-size: 10px;
+  color: var(--accent-gold);
+  letter-spacing: 0.5px;
+}
+
+.card-stand-label {
+  color: var(--muted);
+  font-size: 9px;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+/* ── Odds panel ── */
+
+.odds-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.odds-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 8px;
+  font-size: 12px;
+  border-radius: 1px;
+  transition: background 0.15s;
+}
+
+.odds-row:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.odds-row.selected-bet {
+  background: rgba(240, 192, 64, 0.1);
+  color: var(--accent-gold);
+}
+
+.odds-racer-name {
+  flex: 1;
+}
+
+.odds-pct {
+  font-weight: bold;
+  color: var(--accent-gold);
+  min-width: 40px;
+  text-align: right;
+}
+
+.odds-sprite {
+  margin-right: 6px;
+}
+
+/* ── Bet section ── */
+
+.bet-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.bet-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.bet-label {
+  font-size: 11px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+
+.bet-input {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  padding: 8px 12px;
+  font-family: var(--font-mono);
+  font-size: 15px;
+  transition: border-color 0.2s;
+}
+
+.bet-input:focus {
+  border-color: var(--accent-gold);
+  outline: none;
+  background: rgba(240, 192, 64, 0.05);
+}
+
+.bet-min-note {
+  font-size: 10px;
+  color: var(--muted);
+}
+
+.bet-error {
+  font-size: 11px;
+  color: var(--danger);
+  min-height: 14px;
+  letter-spacing: 0.3px;
+}
+
+.bet-action-row {
+  display: flex;
+  justify-content: center;
+  margin-top: 4px;
+}

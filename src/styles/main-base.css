@@ -1,0 +1,302 @@
+/* ============================================================
+   main-base.css
+   Global reset, CSS custom properties, utility classes
+   Steel Ball Run — ASCII Horse Racing
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   CSS Custom Properties
+   ------------------------------------------------------------ */
+:root {
+  /* Core palette */
+  --bg:              #0d0a07;
+  --text-primary:    #c8a96e;
+  --accent-gold:     #f0c040;
+  --green-glow:      #39ff14;
+  --danger:          #e05252;
+  --muted:           #5a5248;
+  --card-bg:         #1a1510;
+  --border:          #3d3228;
+
+  /* Derived / semantic */
+  --text-muted:      var(--muted);
+  --text-gold:       var(--accent-gold);
+  --text-green:      var(--green-glow);
+  --text-danger:     var(--danger);
+
+  /* Tier colors */
+  --tier-s:          #f0c040;
+  --tier-a:          #a0a0a0;
+  --tier-b:          #cd7f32;
+  --tier-c:          #5a5248;
+
+  /* Podium colors */
+  --podium-gold:     #f0c040;
+  --podium-silver:   #a0a0a0;
+  --podium-bronze:   #cd7f32;
+
+  /* Typography */
+  --font-mono:       'Courier New', 'Lucida Console', monospace;
+
+  /* Spacing scale */
+  --space-xs:   4px;
+  --space-sm:   8px;
+  --space-md:   16px;
+  --space-lg:   24px;
+  --space-xl:   40px;
+
+  /* Z-index layers */
+  --z-hud:     100;
+  --z-overlay: 200;
+  --z-modal:   300;
+
+  /* Transitions */
+  --transition-fast:   0.15s ease;
+  --transition-base:   0.2s ease;
+  --transition-slow:   0.3s ease;
+
+  /* Glow shadows */
+  --glow-gold:  0 0 12px rgba(240, 192,  64, 0.35);
+  --glow-green: 0 0  8px rgba( 57, 255,  20, 0.40);
+  --glow-red:   0 0  8px rgba(224,  82,  82, 0.40);
+}
+
+/* ------------------------------------------------------------
+   Box-sizing reset
+   ------------------------------------------------------------ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ------------------------------------------------------------
+   Base HTML & Body
+   ------------------------------------------------------------ */
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  min-height: 100vh;
+  overflow-x: hidden;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ------------------------------------------------------------
+   Scrollbar styling — thin, dark
+   ------------------------------------------------------------ */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+  border-left: 1px solid var(--border);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted);
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) var(--bg);
+}
+
+/* ------------------------------------------------------------
+   Typography baseline
+   ------------------------------------------------------------ */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-mono);
+  font-weight: bold;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+
+p {
+  line-height: 1.7;
+}
+
+a {
+  color: var(--accent-gold);
+  text-decoration: none;
+  transition: color var(--transition-base);
+}
+
+a:hover {
+  color: var(--text-primary);
+}
+
+pre,
+code {
+  font-family: var(--font-mono);
+}
+
+/* ------------------------------------------------------------
+   Form element baseline
+   ------------------------------------------------------------ */
+button,
+input,
+select,
+textarea {
+  font-family: var(--font-mono);
+  font-size: inherit;
+  color: inherit;
+  background: transparent;
+  border: none;
+  outline: none;
+}
+
+input,
+select,
+textarea {
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* ------------------------------------------------------------
+   Utility: .hidden
+   ------------------------------------------------------------ */
+.hidden {
+  display: none !important;
+}
+
+/* Visibility variant (keeps layout space) */
+.invisible {
+  visibility: hidden !important;
+}
+
+/* ------------------------------------------------------------
+   Utility: screen-fade transition
+   Used by JS to fade screens in/out
+   ------------------------------------------------------------ */
+.screen-fade {
+  opacity: 0;
+  transition: opacity var(--transition-slow);
+  pointer-events: none;
+}
+
+.screen-fade.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ------------------------------------------------------------
+   Utility: text helpers
+   ------------------------------------------------------------ */
+.text-gold    { color: var(--accent-gold);  }
+.text-green   { color: var(--green-glow);   }
+.text-danger  { color: var(--danger);       }
+.text-muted   { color: var(--muted);        }
+.text-primary { color: var(--text-primary); }
+
+.text-center { text-align: center; }
+.text-left   { text-align: left;   }
+.text-right  { text-align: right;  }
+
+.text-bold   { font-weight: bold; }
+.text-upper  { text-transform: uppercase; }
+.text-xs     { font-size: 11px; }
+.text-sm     { font-size: 13px; }
+.text-md     { font-size: 16px; }
+.text-lg     { font-size: 20px; }
+.text-xl     { font-size: 26px; }
+
+/* ------------------------------------------------------------
+   Utility: spacing
+   ------------------------------------------------------------ */
+.mt-sm  { margin-top:    var(--space-sm);  }
+.mt-md  { margin-top:    var(--space-md);  }
+.mt-lg  { margin-top:    var(--space-lg);  }
+.mb-sm  { margin-bottom: var(--space-sm);  }
+.mb-md  { margin-bottom: var(--space-md);  }
+.mb-lg  { margin-bottom: var(--space-lg);  }
+
+/* ------------------------------------------------------------
+   Utility: flex helpers
+   ------------------------------------------------------------ */
+.flex         { display: flex; }
+.flex-col     { display: flex; flex-direction: column; }
+.flex-center  { display: flex; align-items: center; justify-content: center; }
+.flex-between { display: flex; align-items: center; justify-content: space-between; }
+.gap-sm       { gap: var(--space-sm); }
+.gap-md       { gap: var(--space-md); }
+.gap-lg       { gap: var(--space-lg); }
+
+/* ------------------------------------------------------------
+   Utility: border / divider
+   ------------------------------------------------------------ */
+.divider {
+  width: 100%;
+  height: 1px;
+  background: var(--border);
+  margin: var(--space-md) 0;
+}
+
+/* ------------------------------------------------------------
+   Utility: glow effects
+   ------------------------------------------------------------ */
+.glow-gold  { text-shadow: var(--glow-gold);  }
+.glow-green { text-shadow: var(--glow-green); }
+.glow-red   { text-shadow: var(--glow-red);   }
+
+/* ------------------------------------------------------------
+   Utility: badge
+   ------------------------------------------------------------ */
+.badge {
+  display: inline-block;
+  padding: 2px 6px;
+  font-size: 10px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border-radius: 2px;
+  line-height: 1.4;
+}
+
+.badge-gold   { background: var(--accent-gold);  color: var(--bg); }
+.badge-red    { background: var(--danger);        color: #fff;      }
+.badge-muted  { background: var(--muted);         color: var(--bg); }
+
+/* ------------------------------------------------------------
+   Utility: truncate
+   ------------------------------------------------------------ */
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ------------------------------------------------------------
+   Reduced motion preference
+   ------------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

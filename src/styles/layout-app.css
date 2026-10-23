@@ -1,0 +1,321 @@
+/* ============================================================
+   layout-app.css
+   App shell, HUD fixed bar, screen wrapper, round progress bar
+   Steel Ball Run — ASCII Horse Racing
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   #app — root application container
+   ------------------------------------------------------------ */
+#app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* ------------------------------------------------------------
+   .hud — fixed top navigation / status bar
+   ------------------------------------------------------------ */
+.hud {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  background: rgba(13, 10, 7, 0.95);
+  border-bottom: 1px solid var(--border);
+  z-index: var(--z-hud);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  /* Subtle parchment texture hint via box-shadow */
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.6);
+  gap: 16px;
+}
+
+/* Left slot — game title */
+.hud-title {
+  color: var(--accent-gold);
+  font-family: var(--font-mono);
+  font-weight: bold;
+  font-size: 14px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  text-shadow: 0 0 10px rgba(240, 192, 64, 0.45);
+  user-select: none;
+}
+
+/* Center slot — round indicator */
+.hud-round {
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  letter-spacing: 1px;
+  white-space: nowrap;
+  opacity: 0.85;
+}
+
+.hud-round span {
+  color: var(--accent-gold);
+  font-weight: bold;
+}
+
+/* Right slot — bankroll */
+.hud-bankroll {
+  color: var(--green-glow);
+  font-family: var(--font-mono);
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  white-space: nowrap;
+  text-shadow: 0 0 8px rgba(57, 255, 20, 0.45);
+}
+
+.hud-bankroll::before {
+  content: '$ ';
+  color: var(--muted);
+  font-size: 12px;
+}
+
+/* ------------------------------------------------------------
+   .hud-left / .hud-center / .hud-right grouping helpers
+   ------------------------------------------------------------ */
+.hud-left,
+.hud-center,
+.hud-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.hud-left  { flex: 1; justify-content: flex-start; }
+.hud-center { flex: 1; justify-content: center;     }
+.hud-right { flex: 1; justify-content: flex-end;   }
+
+/* ------------------------------------------------------------
+   .hud-separator — thin vertical rule between HUD items
+   ------------------------------------------------------------ */
+.hud-separator {
+  width: 1px;
+  height: 20px;
+  background: var(--border);
+  flex-shrink: 0;
+}
+
+/* ------------------------------------------------------------
+   .screen — full-page section container
+   Each "page" of the SPA is a .screen div
+   ------------------------------------------------------------ */
+.screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px;
+  padding-top: calc(48px + 24px); /* offset for fixed HUD */
+  width: 100%;
+  max-width: 1200px;
+  min-height: calc(100vh - 48px);
+  position: relative;
+}
+
+/* Screens that should be full-bleed (no max-width cap) */
+.screen--full-width {
+  max-width: 100%;
+}
+
+/* ------------------------------------------------------------
+   .round-progress — tournament step indicator
+   Four circular step dots shown in the HUD or on-screen
+   ------------------------------------------------------------ */
+.round-progress {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+}
+
+.round-progress-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+/* The circle dot */
+.round-progress-dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  background: var(--card-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  font-weight: bold;
+  color: var(--muted);
+  transition: border-color var(--transition-base),
+              background    var(--transition-base),
+              color         var(--transition-base),
+              box-shadow    var(--transition-base);
+  position: relative;
+}
+
+/* Connector line between dots */
+.round-progress-step:not(:last-child) .round-progress-dot::after {
+  content: '';
+  position: absolute;
+  left: calc(100% + 2px);
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 2px;
+  background: var(--border);
+}
+
+/* Step label beneath dot */
+.round-progress-label {
+  font-size: 9px;
+  color: var(--muted);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: color var(--transition-base);
+}
+
+/* --- State: completed --- */
+.round-progress-step.completed .round-progress-dot {
+  border-color: var(--muted);
+  background: var(--muted);
+  color: var(--bg);
+}
+
+.round-progress-step.completed .round-progress-dot::after {
+  background: var(--muted);
+}
+
+.round-progress-step.completed .round-progress-label {
+  color: var(--muted);
+}
+
+/* --- State: active (current round) --- */
+.round-progress-step.active .round-progress-dot {
+  border-color: var(--accent-gold);
+  background: rgba(240, 192, 64, 0.15);
+  color: var(--accent-gold);
+  box-shadow: 0 0 10px rgba(240, 192, 64, 0.4),
+              inset 0 0 4px rgba(240, 192, 64, 0.2);
+}
+
+.round-progress-step.active .round-progress-dot::after {
+  background: var(--border);
+}
+
+.round-progress-step.active .round-progress-label {
+  color: var(--accent-gold);
+  font-weight: bold;
+}
+
+/* --- State: upcoming (not yet reached) --- */
+.round-progress-step.upcoming .round-progress-dot {
+  border-color: var(--border);
+  background: var(--card-bg);
+  color: var(--border);
+}
+
+.round-progress-step.upcoming .round-progress-label {
+  color: var(--border);
+}
+
+/* ------------------------------------------------------------
+   .page-section — generic content block inside a screen
+   ------------------------------------------------------------ */
+.page-section {
+  width: 100%;
+  margin-bottom: var(--space-lg);
+}
+
+.page-section-title {
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding-bottom: var(--space-sm);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: var(--space-md);
+}
+
+/* ------------------------------------------------------------
+   .panel — generic bordered card panel
+   ------------------------------------------------------------ */
+.panel {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  padding: var(--space-md);
+}
+
+/* Subtle inner top border for depth */
+.panel::before {
+  content: '';
+  display: block;
+  height: 1px;
+  margin: -var(--space-md);
+  margin-bottom: var(--space-md);
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(240, 192, 64, 0.06) 50%,
+    transparent 100%
+  );
+}
+
+/* ------------------------------------------------------------
+   Responsive — collapse HUD layout on narrow screens
+   ------------------------------------------------------------ */
+@media (max-width: 640px) {
+  .hud {
+    padding: 0 12px;
+    gap: 8px;
+  }
+
+  .hud-title {
+    font-size: 11px;
+    letter-spacing: 2px;
+  }
+
+  .hud-round {
+    font-size: 11px;
+  }
+
+  .hud-bankroll {
+    font-size: 13px;
+  }
+
+  .screen {
+    padding: 12px;
+    padding-top: calc(48px + 12px);
+  }
+
+  .round-progress-dot {
+    width: 16px;
+    height: 16px;
+    font-size: 8px;
+  }
+
+  .round-progress-label {
+    font-size: 8px;
+  }
+}
+
+@media (max-width: 400px) {
+  .hud-center {
+    display: none; /* hide round progress in HUD at very small widths */
+  }
+}

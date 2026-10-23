@@ -1,0 +1,131 @@
+/* ============================================================
+   screen-lobby.css — Lobby screen styles
+   Steel Ball Run ASCII Horse Racing
+   ============================================================ */
+
+.lobby-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding-top: 8vh;
+  gap: 24px;
+}
+
+.lobby-ascii-title {
+  color: var(--accent-gold);
+  font-size: clamp(7px, 1.2vw, 13px);
+  line-height: 1.15;
+  text-shadow: 0 0 24px rgba(240, 192, 64, 0.5);
+  display: inline-block;
+  margin-bottom: 8px;
+  white-space: pre;
+}
+
+.lobby-subtitle {
+  color: var(--text-primary);
+  letter-spacing: 5px;
+  font-size: 12px;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+.lobby-divider {
+  width: 280px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+  margin: 8px auto;
+}
+
+.lobby-bankroll-label {
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.lobby-bankroll-value {
+  font-size: 32px;
+  font-weight: bold;
+  color: var(--green-glow);
+  text-shadow: 0 0 14px rgba(57, 255, 20, 0.5);
+  line-height: 1;
+}
+
+.lobby-start-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+/* ── Buttons ── */
+
+.btn-primary {
+  background: var(--accent-gold);
+  color: #0d0a07;
+  border: none;
+  padding: 14px 48px;
+  font-family: var(--font-mono);
+  font-size: 15px;
+  font-weight: bold;
+  letter-spacing: 3px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary:hover {
+  filter: brightness(1.15);
+  transform: translateY(-2px);
+  box-shadow: var(--glow-gold);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  background: transparent;
+  border: 2px solid var(--accent-gold);
+  color: var(--accent-gold);
+  padding: 14px 48px;
+  font-family: var(--font-mono);
+  font-size: 15px;
+  font-weight: bold;
+  letter-spacing: 3px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-secondary:hover {
+  background: rgba(240, 192, 64, 0.1);
+}
+
+.btn-secondary:active {
+  transform: translateY(0);
+}
+
+/* ── Footer text ── */
+
+.lobby-credits {
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 1px;
+  margin-top: 16px;
+  text-align: center;
+  line-height: 1.8;
+}
+
+.lobby-round-info {
+  font-size: 12px;
+  color: var(--text-primary);
+  opacity: 0.7;
+  text-align: center;
+}

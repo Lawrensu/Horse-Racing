@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Steel Ball Run — ASCII Horse Racing</title>
+    <link rel="stylesheet" href="/src/styles/main-base.css" />
+    <link rel="stylesheet" href="/src/styles/layout-app.css" />
+    <link rel="stylesheet" href="/src/styles/screen-lobby.css" />
+    <link rel="stylesheet" href="/src/styles/screen-prerace.css" />
+    <link rel="stylesheet" href="/src/styles/screen-race.css" />
+    <link rel="stylesheet" href="/src/styles/screen-results.css" />
+  </head>
+  <body>
+    <div id="hud" class="hud hidden">
+      <span class="hud-round">Round <span id="hud-round-num">1</span></span>
+      <span class="hud-title">★ STEEL BALL RUN ★</span>
+      <span class="hud-bankroll">$<span id="hud-bankroll-num">1000</span></span>
+    </div>
+    <div id="app">
+      <!-- screens are injected here by JS -->
+    </div>
+    <script type="module" src="/src/main-entry.ts"></script>
+  </body>
+</html>
